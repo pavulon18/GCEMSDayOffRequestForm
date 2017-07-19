@@ -3,6 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/**
+ *
+ * @author Jim Baize
+ * Copyright 2017
+ */
+
+
 package gcemsdayoffrequestsheet;
 
 import java.text.SimpleDateFormat;
@@ -27,11 +35,7 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 
 
-/**
- *
- * @author Jim Baize
- * Copyright 2017
- */
+
 
 public class GCEMSDayOffRequestSheet extends Application {
     
