@@ -211,7 +211,6 @@ public class GCEMSDayOffRequestSheet extends Application {
         grid.addRow(7, txtApproved, txtYesNo);
         grid.addRow(8, txtSignature, txtSigLine);
         grid.addRow(9, txtApprovalDate, txtDateLine);
-        //grid.addRow(10, btnPrint);
         
         cboxDayOffType.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) ->
         {
