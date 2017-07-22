@@ -3,14 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/**
- *
- * @author Jim Baize
- * Copyright 2017
- */
-
-
 package gcemsdayoffrequestsheet;
 
 import java.text.SimpleDateFormat;
@@ -35,7 +27,11 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 
 
-
+/**
+ *
+ * @author Jim Baize
+ * Copyright 2017
+ */
 
 public class GCEMSDayOffRequestSheet extends Application {
     
@@ -59,7 +55,7 @@ public class GCEMSDayOffRequestSheet extends Application {
         
         //Create the form Header
         Label formHeaderOne = new Label("Vacation / Personal Day / Swap");
-        Label formHeaderTwo = new Label("Request Form");
+        Label formHeaderTwo = new Label("Request Form In Progress");
         Label formHeaderThree = new Label("GCEMS");
         
         //Create the employee name label and text field
@@ -117,19 +113,40 @@ public class GCEMSDayOffRequestSheet extends Application {
          //Create the Personal Day Pane
         Label lblDayOffPersonal = new Label("Personal Day");
         DatePicker dpDayOffPersonal = new DatePicker();
+        Label lblEmployeeOne = new Label("Employee's Signature: ");
+        Label lblSignatureBlank = new Label("________________________");
         
         //Putting the Vacation Day Layout stuff in one Hbox Node so I can (hopefully)
         //more easily add and remove it as needed.
-        HBox vacationHBox = new HBox();
-        vacationHBox.getChildren().add(lblDayOffVacation);
-        vacationHBox.getChildren().add(dpDayOffVacation);
-        vacationHBox.getChildren().add(shiftDuration);
+        //SignatureLines sigLineVDay = new SignatureLines();
+        HBox vacationHBoxLineOne = new HBox();
+        vacationHBoxLineOne.getChildren().add(lblDayOffVacation);
+        vacationHBoxLineOne.getChildren().add(dpDayOffVacation);
+        vacationHBoxLineOne.getChildren().add(shiftDuration);
+        //vacationHBoxLineTwo.getChildren().add(sigLineVDay.makeSingleSignatureLine());
         
-        //Building the Personal Day Layout HBox Node
-        HBox personalHBox = new HBox();
-        personalHBox.getChildren().add(lblDayOffPersonal);
-        personalHBox.getChildren().add(dpDayOffPersonal);
-        personalHBox.getChildren().add(shiftType);
+        HBox vacationHBoxLineTwo = new HBox();
+        vacationHBoxLineTwo.getChildren().add(lblEmployeeOne);
+        vacationHBoxLineTwo.getChildren().add(lblSignatureBlank);
+
+        VBox vacationVBox = new VBox();
+        vacationVBox.getChildren().add(vacationHBoxLineOne);
+        vacationVBox.getChildren().add(vacationHBoxLineTwo);
+        
+        //Building the Personal Day Layout VBox Node
+        //SignatureLines sigLinePDay = new SignatureLines();
+        HBox personalHBoxLineOne = new HBox();
+        personalHBoxLineOne.getChildren().add(lblDayOffPersonal);
+        personalHBoxLineOne.getChildren().add(dpDayOffPersonal);
+        personalHBoxLineOne.getChildren().add(shiftType);
+        
+        HBox personalHBoxLineTwo = new HBox();
+        personalHBoxLineTwo.getChildren().add(lblEmployeeOne);
+        personalHBoxLineTwo.getChildren().add(lblSignatureBlank);
+        
+        VBox personalVBox = new VBox();
+        personalVBox.getChildren().add(personalHBoxLineOne);
+        personalVBox.getChildren().add(personalHBoxLineTwo);
         
         //Building the Swap Day Layout box ... node... whatever it is that I come up with
         HBox swapEmpOneHBox = new HBox();
@@ -152,7 +169,6 @@ public class GCEMSDayOffRequestSheet extends Application {
         
         HBox swapEmpTwoHBox = new HBox();
         Label lblSwapEmpTwo = new Label("Employee Two:");
-        //Label lblSwapEmpOneName = new Label(txtEmployeeOne);
         TextField tfSwapEmpTwo = new TextField();
         Label lblWillWorkTwo = new Label("Will work");
         DatePicker dpSwapTwo = new DatePicker();
@@ -168,9 +184,14 @@ public class GCEMSDayOffRequestSheet extends Application {
         swapEmpTwoHBox.getChildren().add(swapTwoShiftType);
         swapEmpTwoHBox.getChildren().add(dpSwapTwo);
         
+        HBox swapSigLinesOneHBox = new HBox();
+        swapSigLinesOneHBox.getChildren().add(lblEmployeeOne);
+        swapSigLinesOneHBox.getChildren().add(lblSignatureBlank);
+        
         VBox swapVBox = new VBox();
         swapVBox.getChildren().add(swapEmpOneHBox);
         swapVBox.getChildren().add(swapEmpTwoHBox);
+        swapVBox.getChildren().add(swapSigLinesOneHBox);
         
         //Building the blank or null HBox Node
         HBox blankHBox = new HBox();
@@ -214,17 +235,17 @@ public class GCEMSDayOffRequestSheet extends Application {
         
         cboxDayOffType.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) ->
         {
-            grid.getChildren().remove(vacationHBox);
-            grid.getChildren().remove(personalHBox);
+            grid.getChildren().remove(vacationVBox);
+            grid.getChildren().remove(personalVBox);
             grid.getChildren().remove(swapVBox);
             grid.getChildren().remove(blankHBox);
             switch (newVal)
             {
                 case "Vacation":
-                    grid.add(vacationHBox, 0, 6);
+                    grid.add(vacationVBox, 0, 6);
                     break;
                 case "Personal":
-                    grid.add(personalHBox, 0, 6);
+                    grid.add(personalVBox, 0, 6);
                     break;
                 case "Swap":
                     grid.add(swapVBox, 0, 6);
@@ -244,8 +265,8 @@ public class GCEMSDayOffRequestSheet extends Application {
         GridPane.setColumnSpan(formHeaderOne, 2);
         GridPane.setColumnSpan(formHeaderTwo, 2);
         GridPane.setColumnSpan(formHeaderThree, 2);
-        GridPane.setColumnSpan(vacationHBox, 2);
-        GridPane.setColumnSpan(personalHBox, 2);
+        GridPane.setColumnSpan(vacationVBox, 2);
+        GridPane.setColumnSpan(personalVBox, 2);
         GridPane.setColumnSpan(swapVBox, 2);
         
         BorderPane mainScene = new BorderPane();
@@ -275,7 +296,46 @@ public class GCEMSDayOffRequestSheet extends Application {
         
     }
     
+    /*public class SignatureLines
+    {
+    HBox hboxSingleSignatureLine = new HBox();
+    Label lblEmployeeOne = new Label("Employee's Signature: ");
+    Label lblSignatureBlank = new Label("________________________");
     
+    VBox vboxDoubleSignatureLine = new VBox();
+    HBox hboxSingleSignatureLineOne = new HBox();
+    Text txtEmployeeOne = new Text("Employee One's Signature: ");
+    Text txtSignatureBlank = new Text("________________________");
+    HBox hboxSingleSignatureLineTwo = new HBox();
+    Text txtEmployeeTwo = new Text("Employee Two's Signature: ");
+    Text txtSignatureBlankTwo = new Text("________________________");
+    HBox testHBox = new HBox();
+    
+    public SignatureLines()
+    {
+    hboxSingleSignatureLine.getChildren().add(lblEmployeeOne);
+    hboxSingleSignatureLine.getChildren().add(lblSignatureBlank);
+    }
+    
+    public <singleSignatureLine> singleSignatureLine makeSingleSignatureLine()
+    {
+    
+    
+    //testHBox.getChildren().
+    return (singleSignatureLine) hboxSingleSignatureLine;
+    }
+    
+    public <doubleSignatureLine> doubleSignatureLine makeDoubleSignatureLine()
+    {
+    hboxSingleSignatureLineOne.getChildren().add(txtEmployeeOne);
+    hboxSingleSignatureLineOne.getChildren().add(txtSignatureBlank);
+    
+    hboxSingleSignatureLineTwo.getChildren().add(txtEmployeeTwo);
+    hboxSingleSignatureLineTwo.getChildren().add(txtSignatureBlankTwo);
+    
+    return (doubleSignatureLine) vboxDoubleSignatureLine;
+    }
+    }*/
     
     public void buttonClick()
     {
