@@ -107,7 +107,7 @@ public class GCEMSDayOffRequestSheet extends Application {
         });
         
         //Create the Vacation Day Pane
-        Label lblDayOffVacation = new Label("Vacation Day");
+        Label lblDayOffVacation = new Label("Vacation Day in Testing");
         DatePicker dpDayOffVacation = new DatePicker();
         
          //Create the Personal Day Pane
