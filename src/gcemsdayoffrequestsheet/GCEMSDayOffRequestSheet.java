@@ -107,27 +107,29 @@ public class GCEMSDayOffRequestSheet extends Application {
         });
         
         //Create the Vacation Day Pane
-        Label lblDayOffVacation = new Label("Vacation Day in Testing");
+        Label lblDayOffVacation = new Label("Vacation Day");
         DatePicker dpDayOffVacation = new DatePicker();
+        Label lblEmployeeOneVDay = new Label("Employee's Signature: ");
+        Label lblSignatureBlankVDay = new Label("________________________");
         
          //Create the Personal Day Pane
         Label lblDayOffPersonal = new Label("Personal Day");
         DatePicker dpDayOffPersonal = new DatePicker();
-        Label lblEmployeeOne = new Label("Employee's Signature: ");
-        Label lblSignatureBlank = new Label("________________________");
+        Label lblEmployeeOnePDay = new Label("Employee's Signature: ");
+        Label lblSignatureBlankPDay = new Label("________________________");
         
         //Putting the Vacation Day Layout stuff in one Hbox Node so I can (hopefully)
         //more easily add and remove it as needed.
         //SignatureLines sigLineVDay = new SignatureLines();
-        HBox vacationHBoxLineOne = new HBox();
+        HBox vacationHBoxLineOne = new HBox(10);
         vacationHBoxLineOne.getChildren().add(lblDayOffVacation);
         vacationHBoxLineOne.getChildren().add(dpDayOffVacation);
         vacationHBoxLineOne.getChildren().add(shiftDuration);
         //vacationHBoxLineTwo.getChildren().add(sigLineVDay.makeSingleSignatureLine());
         
         HBox vacationHBoxLineTwo = new HBox();
-        vacationHBoxLineTwo.getChildren().add(lblEmployeeOne);
-        vacationHBoxLineTwo.getChildren().add(lblSignatureBlank);
+        vacationHBoxLineTwo.getChildren().add(lblEmployeeOneVDay);
+        vacationHBoxLineTwo.getChildren().add(lblSignatureBlankVDay);
 
         VBox vacationVBox = new VBox();
         vacationVBox.getChildren().add(vacationHBoxLineOne);
@@ -135,25 +137,30 @@ public class GCEMSDayOffRequestSheet extends Application {
         
         //Building the Personal Day Layout VBox Node
         //SignatureLines sigLinePDay = new SignatureLines();
-        HBox personalHBoxLineOne = new HBox();
+        HBox personalHBoxLineOne = new HBox(10);
         personalHBoxLineOne.getChildren().add(lblDayOffPersonal);
         personalHBoxLineOne.getChildren().add(dpDayOffPersonal);
         personalHBoxLineOne.getChildren().add(shiftType);
         
         HBox personalHBoxLineTwo = new HBox();
-        personalHBoxLineTwo.getChildren().add(lblEmployeeOne);
-        personalHBoxLineTwo.getChildren().add(lblSignatureBlank);
+        personalHBoxLineTwo.getChildren().add(lblEmployeeOnePDay);
+        personalHBoxLineTwo.getChildren().add(lblSignatureBlankPDay);
         
         VBox personalVBox = new VBox();
         personalVBox.getChildren().add(personalHBoxLineOne);
         personalVBox.getChildren().add(personalHBoxLineTwo);
         
         //Building the Swap Day Layout box ... node... whatever it is that I come up with
-        HBox swapEmpOneHBox = new HBox();
+        HBox swapEmpOneHBox = new HBox(10);
         Label lblSwapEmpOne = new Label("Employee One:");
         TextField tfSwapEmpOne = new TextField();
         Label lblWillWorkOne = new Label("Will work");
         DatePicker dpSwapOne = new DatePicker();
+        Label lblEmployeeOneSDayOne = new Label("Employee One's Signature: ");
+        Label lblSignatureBlankSDayOne = new Label("________________________");
+        Label lblEmployeeOneSDayTwo = new Label("Employee Two's Signature: ");
+        Label lblSignatureBlankSDayTwo = new Label("________________________");
+        
         
         ComboBox<String> swapOneShiftType;
         swapOneShiftType = new ComboBox<>();
@@ -166,8 +173,7 @@ public class GCEMSDayOffRequestSheet extends Application {
         swapEmpOneHBox.getChildren().add(swapOneShiftType);
         swapEmpOneHBox.getChildren().add(dpSwapOne);
         
-        
-        HBox swapEmpTwoHBox = new HBox();
+        HBox swapEmpTwoHBox = new HBox(10);
         Label lblSwapEmpTwo = new Label("Employee Two:");
         TextField tfSwapEmpTwo = new TextField();
         Label lblWillWorkTwo = new Label("Will work");
@@ -185,13 +191,18 @@ public class GCEMSDayOffRequestSheet extends Application {
         swapEmpTwoHBox.getChildren().add(dpSwapTwo);
         
         HBox swapSigLinesOneHBox = new HBox();
-        swapSigLinesOneHBox.getChildren().add(lblEmployeeOne);
-        swapSigLinesOneHBox.getChildren().add(lblSignatureBlank);
+        swapSigLinesOneHBox.getChildren().add(lblEmployeeOneSDayOne);
+        swapSigLinesOneHBox.getChildren().add(lblSignatureBlankSDayOne);
+        
+        HBox swapSigLinesTwoHBox = new HBox();
+        swapSigLinesTwoHBox.getChildren().add(lblEmployeeOneSDayTwo);
+        swapSigLinesTwoHBox.getChildren().add(lblSignatureBlankSDayTwo);
         
         VBox swapVBox = new VBox();
         swapVBox.getChildren().add(swapEmpOneHBox);
         swapVBox.getChildren().add(swapEmpTwoHBox);
         swapVBox.getChildren().add(swapSigLinesOneHBox);
+        swapVBox.getChildren().add(swapSigLinesTwoHBox);
         
         //Building the blank or null HBox Node
         HBox blankHBox = new HBox();
@@ -222,6 +233,7 @@ public class GCEMSDayOffRequestSheet extends Application {
         GridPane grid = new GridPane();
         
         //Add nodes to the gridpane
+        //grid.setGridLinesVisible(true);
         grid.addRow(0, formHeaderOne);
         grid.addRow(1, formHeaderTwo);
         grid.addRow(2, formHeaderThree);
@@ -273,7 +285,7 @@ public class GCEMSDayOffRequestSheet extends Application {
         mainScene.setCenter(grid);
         mainScene.setTop(btnPrint);
         
-        Scene scene = new Scene(mainScene);
+        Scene scene = new Scene(mainScene, 700, 300);
         primaryStage.setScene(scene);
         primaryStage.setTitle("GCEMS Dayoff Request Form");
         primaryStage.show();
